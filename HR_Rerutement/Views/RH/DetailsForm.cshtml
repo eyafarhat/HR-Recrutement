@@ -1,0 +1,765 @@
+﻿@model HR_Rerutement.Models.Formation
+@{
+    ViewBag.Title = "DetailsForm";
+    Layout = "~/Views/Shared/_LayoutRH.cshtml";
+}
+
+
+
+<!doctype html>
+<html lang="en">
+
+
+
+<body class="vertical  light  ">
+    <div class=" wrapper">
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h3 class="m-0">Détails demande de Formation</h3>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Dashboard","RH")">Acceuil</a></li>
+                            <li class="breadcrumb-item active">Détails demande de Formation</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+
+
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+
+                        <section class="content">
+                            <div class="mb-2 align-items-center container-fluid">
+                                <div class="card-body my-n2">
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <div class="card shadow">
+                                                <div class="card-body">
+                                                    @*<div class="form-group row">
+                                                            &nbsp; &nbsp; &nbsp; <h5 class="card-title">Demandeur</h5>
+                                                        </div>*@
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+
+                                                            <label for="inputtext4">Nom et Prenom :</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text" id="basic-addon1">
+                                                                        <span class="iconify" data-icon="ph:users-duotone"
+                                                                              data-width="20" data-height="20"></span>
+                                                                    </span>
+
+                                                                </div>
+                                                                <input type="text" class="form-control" id="inputtext4" placeholder="Nom et Prenom" readonly value="@Model.NomPrenom">
+                                                                <input type="hidden" value="@Model.Id_demande" id="Id_demande">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-group col-md-1"></div>
+                                                        <div class="form-group col-md-5">
+
+                                                            <label for="date-input1">Date souhaitée :</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group">
+                                                                    <input type="date" id="last-start-date" value="@string.Format("{0:yyyy-MM-dd}", @Model.DateFormation)" class="form-control" readonly />
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <div class="card shadow">
+                                                <div class="card-body">
+                                                    <div class="form-group row">
+                                                        &nbsp; &nbsp; &nbsp;  <h5 class="card-title">Besoins en Formation</h5>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label">Service Ou Direction  :</label>
+                                                        <div class="col">
+                                                            <select class="custom-select" required name="Service" id="Service">
+                                                                @if (@Model.Service.Equals("Direction Générale"))
+                                                                {
+
+
+                                                                    <option value="Direction Générale " selected>Direction Générale</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Générale">Direction Générale</option>
+                                                                }
+
+                                                                @if (@Model.Service.Equals("Direction Administratif et Financier"))
+                                                                {
+
+
+                                                                    <option value="Direction Administratif et Financier" selected>Direction Administratif et Financier</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Administratif et Financier">Direction Administratif et Financier</option>
+                                                                }
+
+                                                                @if (@Model.Service.Equals("Direction Achat"))
+                                                                {
+
+
+                                                                    <option value="Direction Achat" selected>Direction Achat</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Achat">Direction Achat</option>
+                                                                }
+                                                                @if (@Model.Service.Equals("Direction Production et Maintenance"))
+                                                                {
+
+
+                                                                    <option value=" Direction Production et Maintenance" selected>Direction Production et Maintenance</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Production et Maintenance">Direction Production et Maintenance</option>
+                                                                }
+                                                                @if (@Model.Service.Equals("Direction Ressources Humaines"))
+                                                                {
+
+
+                                                                    <option value=" Direction Ressources Humaines" selected>Direction Ressources Humaines</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Ressources Humaines">Direction Ressources Humaines</option>
+                                                                }
+                                                                @if (@Model.Service.Equals("Direction Grand compte et Projets"))
+                                                                {
+
+
+                                                                    <option value=" Direction Grand compte et Projets" selected>Direction Grand compte et Projets</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Grand compte et Projets">Direction Grand compte et Projets</option>
+                                                                }
+                                                                @if (@Model.Service.Equals("Direction Supply Chain"))
+                                                                {
+
+
+                                                                    <option value=" Direction Supply Chain" selected>Direction Supply Chain</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Supply Chain">Direction Supply Chain</option>
+                                                                }
+
+                                                                @if (@Model.Service.Equals("Direction Qualité"))
+                                                                {
+
+
+                                                                    <option value=" Direction Qualité" selected>Direction Qualité</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Direction Qualité">Direction Qualité</option>
+                                                                }
+
+
+                                                                @if (@Model.Service.Equals("Service Méthodes"))
+                                                                {
+
+
+                                                                    <option value=" Service Méthodes" selected>Service Méthodes</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Service Méthodes">Service Méthodes</option>
+                                                                }
+
+
+                                                                @if (@Model.Service.Equals("Service Process"))
+                                                                {
+
+
+                                                                    <option value="Service Process" selected>Service Process</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Service Process">Service Process</option>
+                                                                }
+
+                                                                @if (@Model.Service.Equals("Service Test"))
+                                                                {
+
+
+                                                                    <option value="Service Test" selected>Service Test</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Service Test">Service Test</option>
+                                                                }
+
+                                                                @if (@Model.Service.Equals("Service Test"))
+                                                                {
+
+
+                                                                    <option value="Service IT" selected>Service IT</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Service IT">Service IT</option>
+                                                                }
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label">Type de la formation :</label>
+                                                        <div class="col">
+                                                            <select class="custom-select" required name="typeFormation" id="typeFormation">
+                                                                @if (@Model.typeFormation.Equals("Interne Indirect"))
+                                                                {
+
+
+                                                                    <option value="Interne Indirect" selected>Interne Indirect</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Interne Indirect">Interne Indirect</option>
+                                                                }
+
+                                                                @if (@Model.typeFormation.Equals("Interne direct"))
+                                                                {
+
+
+                                                                    <option value="Interne direct" selected>Interne direct</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Interne direct">Interne direct</option>
+                                                                }
+
+
+                                                                @if (@Model.typeFormation.Equals("Externe"))
+                                                                {
+
+
+                                                                    <option value="Externe" selected>Externe</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Externe">Externe</option>
+                                                                }
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label">Intitulé de la formation :</label>
+                                                        <div class="col">
+                                                            <select class="custom-select" required name="IntituleFormation" id="IntituleFormation">
+                                                                @if (@Model.IntituleFormation.Equals("P1 : Formation qualité ou bien réglementaire"))
+                                                                {
+
+
+                                                                    <option value="P1 : Formation qualité ou bien réglementaire" selected>P1 : Formation qualité ou bien réglementaire</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="P1 : Formation qualité ou bien réglementaire">P1 : Formation qualité ou bien réglementaire</option>
+                                                                }
+                                                                @if (@Model.IntituleFormation.Equals("P2: Formation obligatoire par rapport au fonction"))
+                                                                {
+
+
+                                                                    <option value="P2: Formation obligatoire par rapport au fonction" selected>P2: Formation obligatoire par rapport au fonction</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="P2: Formation obligatoire par rapport au fonction">P2: Formation obligatoire par rapport au fonction</option>
+                                                                }
+                                                                @if (@Model.IntituleFormation.Equals("P3 :Formation de Développement de compétence"))
+                                                                {
+
+
+                                                                    <option value="P3 :Formation de Développement de compétence" selected>P3 :Formation de Développement de compétence</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="P3 :Formation de Développement de compétence">P3 :Formation de Développement de compétence</option>
+                                                                }
+
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label">Profil cible (ou nom et prénom) :</label>
+                                                        <div class="col">
+                                                            <input type="text" value="@Model.NomPrenom" name="example-email" class="form-control" id="NomPrenom" placeholder="Profil cible">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label">Priorité :</label>
+                                                        <div class="col">
+                                                            <select class="custom-select" required name="Priorite" id="Priorite">
+                                                                @if (@Model.Priorite.Equals("Normal"))
+                                                                {
+
+
+                                                                    <option value="Normal" selected>Normal</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Normal">Normal</option>
+                                                                }
+                                                                @if (@Model.Priorite.Equals("Urgent"))
+                                                                {
+
+
+                                                                    <option value="Urgent" selected>Urgent</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Urgent">Urgent</option>
+                                                                }
+                                                                @if (@Model.Priorite.Equals("Critique"))
+                                                                {
+
+
+                                                                    <option value="Critique" selected>Critique</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="Critique">Critique</option>
+                                                                }
+
+
+
+
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <div class="card shadow">
+                                                <div class="card-body">
+                                                    <div class="form-group row">
+                                                        &nbsp; &nbsp; &nbsp;  <h5 class="card-title">Objectif</h5>
+                                                    </div>
+
+                                                    <div class="form-row">
+
+                                                        <div class="form-group col-md-12">
+                                                            <textarea class="form-control" placeholder="Objectif" value="Objectif" id="Objectif" name="Objectif">@Model.Objectif</textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div><!-- /.card-body -->
+
+                        </section>
+
+                    </div> <!-- Striped rows -->
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="text-center">
+                        <button type="button" class="btn mb-5 btn text-white" style="background-color: #005f73 !important " id="ModifierDetailsForm">
+                            <span span class="iconify" data-icon="line-md:edit-twotone-full" style="color: white;" data-width="20" data-height="20"></span> Modifier
+                        </button>  &nbsp &nbsp &nbsp
+                        <button type="button" class="btn mb-5 btn text-white rounded-3" data-dismiss="modal" style="background-color: #ae2012 !important" id="SupprimerDetailsForm">
+                            <span class="iconify" data-icon="fluent:delete-16-filled" style="color: white;" data-width="20" data-height="20"></span> Supprimer
+                        </button>
+
+                    </div>
+                </div> <!-- .row-->
+            </div> <!-- .col-12 -->
+
+        </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <!-- Sweet Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $('#ModifierDetailsForm').on("click", function () {
+            var formation = {};
+           formation.Id_demande= $("#Id_demande").val();
+            formation.IntituleFormation = $("#IntituleFormation").val();
+            formation.Objectif = $("#Objectif").val();
+            formation.Priorite = $("#Priorite").val();
+            formation.typeFormation = $("#typeFormation").val();
+            formation.Service = $("#Service").val();
+            formation.NomPrenom = $("#NomPrenom").val();
+
+             $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: "@Url.Action("ModifierDemandeFormation", "RH")",
+                 data: { formation },
+            success: function (data) {
+                console.log("data", data);
+
+                Swal.fire({
+
+                    icon: 'success',
+                    title: 'Demande Modifié',
+                    text: 'Demande Modifié !!',
+
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    location.href = "/RH/HistoriqueDemandeFormation";
+                })
+
+            }
+        });
+
+
+
+        })
+
+        $('#SupprimerDetailsForm').on("click", function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var IdFormation = $("#Id_demande").val();
+
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: "@Url.Action("DeleteDemandeFormation", "Chef")",
+            data: { IdFormation },
+            success: function (data) {
+                console.log("data", data);
+
+                Swal.fire({
+
+                    icon: 'success',
+                    title: 'Demande Supprimé',
+                    text: 'Demande Supprimé !!',
+
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    location.href = "/RH/HistoriqueDemandeFormation";
+                })
+
+            }
+        });
+                }
+            })
+
+        })
+
+
+        $('#dd').on("click", function () {
+
+            //alert('xdgfdgdf');
+
+            $('.dd_right').show();
+
+        })
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="~/FrontFinal/js/jquery.min.js"></script>
+    <script src="~/FrontFinal/js/popper.min.js"></script>
+    <script src="~/FrontFinal/js/moment.min.js"></script>
+    <script src="~/FrontFinal/js/bootstrap.min.js"></script>
+    <script src="~/FrontFinal/js/simplebar.min.js"></script>
+    <script src='~/FrontFinal/js/daterangepicker.js'></script>
+    <script src='~/FrontFinal/js/jquery.stickOnScroll.js'></script>
+    <script src="~/FrontFinal/js/tinycolor-min.js"></script>
+    <script src="~/FrontFinal/js/config.js"></script>
+    <script src="~/FrontFinal/js/d3.min.js"></script>
+    <script src="~/FrontFinal/js/topojson.min.js"></script>
+    <script src="~/FrontFinal/js/datamaps.all.min.js"></script>
+    <script src="~/FrontFinal/js/datamaps-zoomto.js"></script>
+    <script src="~/FrontFinal/js/datamaps.custom.js"></script>
+    <script src="~/FrontFinal/js/Chart.min.js"></script>
+    <script>
+        /* defind global options */
+        Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
+        Chart.defaults.global.defaultFontColor = colors.mutedColor;</script>
+    <script src="~/FrontFinal/js/gauge.min.js"></script>
+    <script src="~/FrontFinal/js/jquery.sparkline.min.js"></script>
+    <script src="js/apexcharts.min.js"></script>
+    <script src="~/FrontFinal/js/apexcharts.custom.js"></script>
+    <script src='~/FrontFinal/js/jquery.mask.min.js'></script>
+    <script src='~/FrontFinal/js/select2.min.js'></script>
+    <script src='~/FrontFinal/js/jquery.steps.min.js'></script>
+    <script src='~/FrontFinal/js/jquery.validate.min.js'></script>
+    <script src='~/FrontFinal/js/jquery.timepicker.js'></script>
+    <script src='~/FrontFinal/js/dropzone.min.js'></script>
+    <script src='~/FrontFinal/js/uppy.min.js'></script>
+    <script src='~/FrontFinal/js/quill.min.js'></script>
+    <script>
+        $('.select2').select2(
+            {
+                theme: 'bootstrap4',
+            });
+        $('.select2-multi').select2(
+            {
+                multiple: true,
+                theme: 'bootstrap4',
+            });
+        $('.drgpicker').daterangepicker(
+            {
+                singleDatePicker: true,
+                timePicker: false,
+                showDropdowns: true,
+                locale:
+                {
+                    format: 'MM/DD/YYYY'
+                }
+            });
+        $('.time-input').timepicker(
+            {
+                'scrollDefault': 'now',
+                'zindex': '9999' /* fix modal open */
+            });
+        /** date range picker */
+        if ($('.datetimes').length) {
+            $('.datetimes').daterangepicker(
+                {
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale:
+                    {
+                        format: 'M/DD hh:mm A'
+                    }
+                });
+        }
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        $('#reportrange').daterangepicker(
+            {
+                startDate: start,
+                endDate: end,
+                ranges:
+                {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+        cb(start, end);
+        $('.input-placeholder').mask("00/00/0000",
+            {
+                placeholder: "__/__/____"
+            });
+        $('.input-zip').mask('00000-000',
+            {
+                placeholder: "____-___"
+            });
+        $('.input-money').mask("#.##0,00",
+            {
+                reverse: true
+            });
+        $('.input-phoneus').mask('(000) 000-0000');
+        $('.input-mixed').mask('AAA 000-S0S');
+        $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
+            {
+                translation:
+                {
+                    'Z':
+                    {
+                        pattern: /[0-9]/,
+                        optional: true
+                    }
+                },
+                placeholder: "___.___.___.___"
+            });
+        // editor
+        var editor = document.getElementById('editor');
+        if (editor) {
+            var toolbarOptions = [
+                [
+                    {
+                        'font': []
+                    }],
+                [
+                    {
+                        'header': [1, 2, 3, 4, 5, 6, false]
+                    }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [
+                    {
+                        'header': 1
+                    },
+                    {
+                        'header': 2
+                    }],
+                [
+                    {
+                        'list': 'ordered'
+                    },
+                    {
+                        'list': 'bullet'
+                    }],
+                [
+                    {
+                        'script': 'sub'
+                    },
+                    {
+                        'script': 'super'
+                    }],
+                [
+                    {
+                        'indent': '-1'
+                    },
+                    {
+                        'indent': '+1'
+                    }], // outdent/indent
+                [
+                    {
+                        'direction': 'rtl'
+                    }], // text direction
+                [
+                    {
+                        'color': []
+                    },
+                    {
+                        'background': []
+                    }], // dropdown with defaults from theme
+                [
+                    {
+                        'align': []
+                    }],
+                ['clean'] // remove formatting button
+            ];
+            var quill = new Quill(editor,
+                {
+                    modules:
+                    {
+                        toolbar: toolbarOptions
+                    },
+                    theme: 'snow'
+                });
+        }
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();</script>
+    <script>
+        var uptarg = document.getElementById('drag-drop-area');
+        if (uptarg) {
+            var uppy = Uppy.Core().use(Uppy.Dashboard,
+                {
+                    inline: true,
+                    target: uptarg,
+                    proudlyDisplayPoweredByUppy: false,
+                    theme: 'dark',
+                    width: 770,
+                    height: 210,
+                    plugins: ['Webcam']
+                }).use(Uppy.Tus,
+                    {
+                        endpoint: 'https://master.tus.io/files/'
+                    });
+            uppy.on('complete', (result) => {
+                console.log('Upload complete! We’ve uploaded these files:', result.successful)
+            });
+        }</script>
+    <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+    <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+    <script src="js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-56159088-1');</script>
+</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,191 @@
+﻿@model  HR_Rerutement.Models.Demandeur
+@{
+    ViewBag.Title = "MonCompte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+
+        <div class="row">
+
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mb-30">
+                <div class="card-box height-100-p overflow-hidden">
+                    <div class="profile-tab height-100-p">
+                        <div class="tab height-100-p">
+
+                            <div class="tab-content">
+
+                                <!-- Setting Tab start -->
+                                <div class="tab-pane fade show active" id="settings" role="tabpanel">
+                                    <div class="profile-setting">
+                                        <form>
+                                            <ul class="profile-edit-list row">
+                                                <li class="weight-500 col-md-6">
+
+                                                    <h2 class="text-blue h5 mb-20">Edit Your Personal Setting</h2>
+
+                                                    <div class="form-group">
+                                                        <h6><label>Matricule</label></h6>
+                                                        <input class="form-control form-control-lg" type="text" readonly placeholder="Empl_Matricule" id="Empl_matr" value="@Model.Empl_Matricule" name="Empl_Matricule">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h6><label>Email</label></h6>
+                                                        <input class="form-control form-control-lg" type="text" value="@Model.Empl_Email" name="Empl_Email" id="Empl_Email">
+                                                    </div>
+
+
+                                                </li>
+                                                <li class="weight-500 col-md-6">
+                                                    <h4 class="text-blue h5 mb-20">&nbsp;</h4>
+
+                                                    <div class="form-group">
+                                                        <h6><label>Nom et prénom:</label></h6>
+                                                        <input class="form-control form-control-lg" type="text" value="@Model.Empl_Nom_Prenom" id="Empl_Nom_Prenom" name="Empl_Nom_Prenom">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <h6><label>Numéro Professionel:</label></h6>
+                                                        <input class="form-control form-control-lg" type="text" value="@Model.Empl_NumPro" id="Empl_NumPro" name="Empl_NumPro">
+                                                    </div>
+
+
+                                                    <div class="form-group mb-0 float-right">
+                                                        <button type="button" role="button" id="updateAccount" class="btn btn-primary ">Modifier mes Infos</button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Setting Tab End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
+                <div class="pd-20 card-box ">
+                    <div class="profile-photo">
+                        <a href="modal" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="fa fa-pencil"></i></a>
+                        <img src="https://cdn.pixabay.com/photo/2020/07/14/13/07/icon-5404125_1280.png" alt="" class="avatar-photo">
+
+                    </div>
+                    <h5 class="text-center h5 mb-0">@Model.Empl_Nom_Prenom</h5>
+                    <p class="text-center text-muted font-14">@Model.Empl_Matricule</p>
+                    <div class="profile-info">
+                        <div class="form-group text-center">
+                            <button id="ChangerPassword" type="submit" class="btn btn-primary">Changer Password</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/FrontFinal/theme/src/plugins/cropperjs/dist/cropper.js"></script>
+<!-- Sweet Alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+     $("#ChangerPassword").click(function () {
+
+            var email = $("#Empl_Email").val();
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: "@Url.Action("ChangerPassword", "Admin")",
+                data: { email },
+                success: function (data) {
+                    console.log("data", data);
+                    if (data == "Success") {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Password Modifié',
+                            text: 'Password Modifié ',
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'erreur...',
+                            text: 'erreur',
+                            footer: ''
+                        })
+                    }
+                }
+            })
+      })
+    $("#updateAccount").click(function () {
+
+
+
+        var Empl_Email = $("#Empl_Email").val();
+        var Empl_Nom_Prenom = $("#Empl_Nom_Prenom").val();
+        var Empl_NumPro = $("#Empl_NumPro").val();
+        var Empl_Matricule = $("#Empl_matr").val();
+
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: "@Url.Action("ModiferCompte", "Admin")",
+                data: { Empl_Matricule, Empl_Nom_Prenom, Empl_NumPro, Empl_Email },
+                success: function (data) {
+                    console.log("data", data);
+                    if (data == "Success") {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Profil Modifié',
+                            text: 'Profil Modifié ',
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'erreur...',
+                            text: 'erreur',
+                            footer: ''
+                        })
+                    }
+                }
+            })
+      })
+
+
+    window.addEventListener('DOMContentLoaded', function () {
+        var image = document.getElementById('image');
+        var cropBoxData;
+        var canvasData;
+        var cropper;
+
+        $('#modal').on('shown.bs.modal', function () {
+            cropper = new Cropper(image, {
+                autoCropArea: 0.5,
+                dragMode: 'move',
+                aspectRatio: 3 / 3,
+                restore: false,
+                guides: false,
+                center: false,
+                highlight: false,
+                cropBoxMovable: false,
+                cropBoxResizable: false,
+                toggleDragModeOnDblclick: false,
+                ready: function () {
+                    cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
+                }
+            });
+        }).on('hidden.bs.modal', function () {
+            cropBoxData = cropper.getCropBoxData();
+            canvasData = cropper.getCanvasData();
+            cropper.destroy();
+        });
+    });
+</script>

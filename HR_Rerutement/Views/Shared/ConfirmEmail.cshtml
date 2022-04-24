@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmEmail";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authentication </title>
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="~/FrontFinal/loginAssets/css/styles.css">
+
+    <!-- ===== BOX ICONS ===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Login form responsive</title>
+</head>
+<body>
+    <div class="l-form">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+
+        <div class="form">
+            <img src="~/FrontFinal/loginAssets/img/TISCircuit.png" alt="" class="form__img">
+
+            <form action="" class="form__content">
+                <h1 class="form__title">Mot de passe oublié !</h1>
+
+                <div class="form__div form__div-one">
+                    <div class="form__icon">
+                        <i class='bx bx-user-circle'></i>
+                    </div>
+
+                    <div class="form__div-input">
+                        <label for="" class="form__label" >Email</label>
+                        <input type="text" class="form__input" id="Email" name="Email">
+                    </div>
+                </div>
+
+
+                @*<a href="index.html" class="form__forgot">Connecter</a>*@
+
+                <input type="button" class="form__button" value="Envoyer un email" id="SendEmail" name="SendEmail">
+
+                <div class="form__social">
+                    <span class="form__social-text"><strong>Copyright &copy;  @DateTime.Now.ToString("yyyy") <a href="https://www.allcircuits.com/" target="_blank" style="color: #e31a42 !important;">Tis Circuit</a></strong></span>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- ===== MAIN JS ===== -->
+    <script src="assets/js/main.js"></script>
+
+
+
+<!-- Sweet Alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+<script>
+
+
+        $("#SendEmail").click(function () {
+
+            var email = $("#Email").val();
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: "@Url.Action("ConfirmEmail", "Shared")",
+                data: { email },
+                success: function (data) {
+                    console.log("data", data);
+                    if (data == "Success") {
+                        location.href = "/Shared/Login";
+
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Compte introuvable...',
+                            text: 'Compte introuvable',
+                            footer: ''
+                        })
+                    }
+                }
+            })
+      })
+</script>
+
+</body>
+</html>

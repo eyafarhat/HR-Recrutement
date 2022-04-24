@@ -1,0 +1,498 @@
+﻿@model List<HR_Rerutement.Models.Demandeur>
+@{ ViewBag.Title = "GestionComptes";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Gestion Compte</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Acceuil</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Gestion Compte</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right">
+                    <div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown" style="background-color:black">
+                            Options
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Export List</a>
+                            <a class="dropdown-item" href="#">Policies</a>
+                            <a class="dropdown-item" href="#">View Assets</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Simple Datatable start -->
+        <div class="card-box mb-30">
+            <div class="pd-20">
+                <h4 class="text-blue h4">
+                    Les membres de la Sociète
+                    <button class="btn btn-sm more-vertical btn btn-sm btn-danger float-right badge-pill badge"
+                            data-toggle="modal" data-target="#bd-example-modal-lg" type="button" id="dr2"
+                            aria-haspopup="true" aria-expanded="false">
+                        <span class="fe fe-24 fe-user-plus small"></span> Nouveau Compte
+                    </button>
+                </h4>
+            </div>
+            <div class="pb-20">
+                <table class="data-table table stripe hover">
+                    <thead>
+                        <tr>
+                            <th>Matricule</th>
+                            <th>Role</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var demandeur in Model.Where(x => x.Permission != null).ToList())
+                        {
+
+                            <tr id="@demandeur.Permission.Empl_Matricule">
+                                <td>@demandeur.Permission.Empl_Matricule</td>
+                                <td>@demandeur.Permission.Role.Role1</td>
+
+                                <td class="text-center">
+
+                                    <div class="dropdown">
+
+                                        <button class="btn btn-sm more-vertical modifier" type="button">
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvCsmJZa_EYcGByXGpwRT17qVSRVPgy6l6Tg&usqp=CAU" style="width: 30px;">
+                                        </button>
+
+                                        <button class="btn btn-sm more-vertical supprimer" type="button">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/216/216658.png" style="width: 30px;">
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Simple Datatable End -->
+
+
+    </div>
+
+</div>
+
+
+
+
+<!-- Modal Modifier -->
+<div class="modal fade" id="ModifierCompteModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title text-center" id="varyModalLabel">Modifier Compte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+
+                <div class="form-group">
+
+                    <input type="hidden" id="ModifierCompteMatricule" value="" />
+                    <label for="inputtexte4">Role :</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <span class="iconify" data-icon="eos-icons:cluster-role" data-width="20"
+                                      data-height="20">
+
+                                </span>
+                            </span>
+
+                        </div>
+                        <select id="ModifierCompteRole" class="form-control">
+
+                            <option value="1">Admin</option>
+                            <option value="2">Chef</option>
+                            <option value="3">Demandeur</option>
+                            <option value="4">RH</option>
+                        </select>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer center">
+                <button type="button" class="btn mb-2 btn-primary" data-dismiss="modal">
+                    <span class="iconify"
+                          data-icon="line-md:cancel" data-width="20" data-height="20"></span> Non, Annulée
+                </button>
+                <button type="button" id="SaveModiferCompte" class="btn mb-2 btn-secondary" style="background-color: #e52335; border-color: #e52335; ">
+                    <span class="iconify"
+                          data-icon="fluent:edit-16-regular" data-width="20" data-height="20"></span> Modifier
+                    Compte
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Ajouter -->
+
+<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Ajouter Compte</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Matricule</label>
+                                <select class="form-control" id="MatriculeEMp">
+                                    @foreach (var demandeur in Model.Where(x => x.Permission == null).ToList())
+                                    {
+                                        <option style=" height: 38px !important" value="@demandeur.Empl_Matricule">@demandeur.Empl_Matricule</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Nom et Prenom :</label>
+                                <input type="text" class="form-control" id="nomPrenom" placeholder="Nom et Prenom" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Fonction :</label>
+                                <input type="text" class="form-control" id="fonction" placeholder="Fonction" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Service :</label>
+                                <input type="text" class="form-control" id="service" placeholder="Service" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Email :</label>
+                                <input type="text" class="form-control" id="email" placeholder="Email"
+                                       autocomplete="on">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Numero Professionel :</label>
+                                <input type="text" class="form-control" id="numPro" placeholder="Num Pro" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Matricule Responsable :</label>
+                                <input type="text" class="form-control" id="matResponsable"
+                                       placeholder="Matricule Responsable" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Role :</label>
+                                <select id="role" class="form-control">
+
+                                    <option value="1">Admin</option>
+                                    <option value="2">Chef</option>
+                                    <option value="3">Demandeur</option>
+                                    <option value="4">RH</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </form>
+                <h6 class="texte-centre">Matricule et mot de passe seront envoyés par e-mail au membre ajouté ! </h6>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="AjouterCompte"> Ajouter Compte</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #e52335; border-color: #e52335; "> Non, Annulée</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Suprimer -->
+<div class="modal fade  rounded-0" id="SupprimerModal" tabindex="-1" role="dialog"
+     aria-labelledby="verticalModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-3">
+
+
+            <input type="hidden" id="SupprimerModalCompte" value="" />
+            <div class="modal-body text-center">
+                <img src="https://www.icone-png.com/png/22/21855.png" style="height: 150px; width: 150px; position: relative; /* margin: 8%; */ bottom: 11px; margin: 20px; border-radius: 50%; border: 9px solid #999; "/>
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn mb-2 btn-primary" data-dismiss="modal">
+                    <span class="iconify"
+                          data-icon="line-md:cancel" data-width="20" data-height="20"></span> Non, Annulée
+                </button>
+                <button type="button" class="btn mb-2 btn-success text-white " style="background-color: #e52335; border-color: #e52335; ">
+                    <span class="iconify"
+                          data-icon="bi:check" data-width="20" data-height="20" id="saveSupprimer"></span> Oui, Supprimer
+                </button>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Sweet Alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    })
+   $(document).ready(function () {
+       $('#example').DataTable();
+   });
+
+    $(".modifier").click(function () {
+        var trid = $(this).closest('tr').attr('id');
+        //$('#myModal').modal('toggle');
+        //$('#myModal').modal('show');
+        //$('#myModal').modal('hide');
+        $("#ModifierCompteMatricule").val(trid);
+        $('#ModifierCompteModal').modal('show');
+    })
+
+    $(".supprimer").click(function () {
+        var trid = $(this).closest('tr').attr('id'); // table row ID
+        $("#SupprimerModalCompte").val(trid);
+        $('#SupprimerModal').modal('show');
+
+
+    })
+
+
+
+    $("#SaveModiferCompte").click(function () {
+
+        var matricule = $("#ModifierCompteMatricule").val();
+        var role = $("#ModifierCompteRole").val();
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: "@Url.Action("ModifierDemandeur", "Admin")",
+            data: { matricule, role },
+            success: function (data) {
+                console.log("data", data);
+                $('#ModifierCompteModal').modal('hide');
+                Swal.fire({
+
+                    icon: 'success',
+                    title: 'Compte Modifié',
+                    text: 'Compte Modifié !!',
+
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    location.reload();
+                })
+
+            }
+        });
+
+
+    })
+
+    $("#saveSupprimer").click(function () {
+
+        var matricule = $("#SupprimerModalCompte").val();
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: "@Url.Action("DeleteDemandeur", "Admin")",
+            data: { matricule },
+            success: function (data) {
+                console.log("data", data);
+                $('#SupprimerModal').modal('hide');
+                Swal.fire({
+
+                    icon: 'success',
+                    title: 'Compte supprimé',
+                    text: 'Compte supprimé',
+
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    location.reload();
+                })
+
+
+
+            }
+        });
+
+
+    })
+
+
+
+    $('#MatriculeEMp').on('change', function () {
+        var matricule = $("#MatriculeEMp").val();
+
+        console.log(matricule);
+         $.ajax({
+         dataType: "json",
+         type: "POST",
+         url:  "@Url.Action("GetDemandeuBymatricule", "Admin")",
+         data: { matricule },
+          success: function (data) {
+              console.log("data GetDemandeuBymatricule", data);
+              $("#nomPrenom").val(data.nomPrenom);
+              $("#matResponsable").val(data.matResponsable);
+              $("#numPro").val(data.numPro);
+              $("#fonction").val(data.fonction);
+              $("#service").val(data.service);
+              $("#email").val(data.email);
+              $("#role").val(data.role);
+
+
+
+         }
+         });
+
+    });
+
+
+
+    $("#AjouterCompte").click(function () {
+
+                var Empl_Matricule = $("#MatriculeEMp").val();
+                var Empl_Email = $("#email").val();
+        var Role = $("#role").val();
+        
+                if (Empl_Matricule == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: ''
+                    })
+
+                    return;
+                }
+                if (Empl_Email == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: ''
+                    })
+                    return;
+                }
+                if (Role == '') {
+                    // sewwet alert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: ''
+                    })
+                    return;
+                }
+
+
+
+
+
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: "@Url.Action("AjouterDemandeur", "Admin")",
+                    data: { Empl_Matricule, Empl_Email, Role },
+                    success: function (data) {
+                        console.log("data", data);
+                        $('#gridSystemModal').modal('hide');
+
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Compte Ajouté',
+                            text: 'Compte Ajouté',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            location.reload();
+                        })
+
+
+
+
+
+                            }
+
+
+
+                });
+
+
+            });
+
+
+
+
+
+
+
+
+
+</script>
+

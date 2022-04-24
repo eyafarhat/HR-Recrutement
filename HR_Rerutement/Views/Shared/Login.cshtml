@@ -1,0 +1,172 @@
+﻿
+@{
+    Layout = null;
+}
+
+@{
+
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authentication </title>
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="~/FrontFinal/loginAssets/css/styles.css">
+
+    <!-- ===== BOX ICONS ===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Login form responsive</title>
+
+</head>
+<body>
+    <div class="l-form">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+
+        <div class="form">
+            <img src="~/FrontFinal/loginAssets/img/TISCircuit.png" alt="" class="form__img">
+
+            <form action="" class="form__content">
+                <h1 class="form__title">Bienvenue !</h1>
+
+                <div class="form__div form__div-one">
+
+                    <div class="form__icon">
+                        <i class='bx bx-user-circle'></i>
+                    </div>
+
+                    <div class="form__div-input">
+                        <label for="" class="form__label">Matricule</label>
+                        <input type="text" class="form__input" name="Empl_Matricule" id="Matricule">
+                    </div>
+
+                </div>
+
+                <div class="form__div">
+                    <div class="form__icon">
+                        <i class='bx bx-lock'></i>
+                    </div>
+
+                    <div class="form__div-input">
+                        <label for="" class="form__label">Mot de passe</label>
+                        <input type="password" class="form__input" name="password" id="password">
+                    </div>
+                </div>
+                <a href=@Url.Action("ConfirmEmail") class="form__forgot">Mot de passe oublié ?</a>
+
+                <input type="button" class="form__button" id="Btnsubmit" value="Se connecter">
+
+                <div class="form__social">
+                    <span class="form__social-text"><strong>Copyright &copy;  @DateTime.Now.ToString("yyyy") <a href="https://www.allcircuits.com/" target="_blank" style="color: #e31a42 !important;" ">Tis Circuit</a></strong></span>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- ===== MAIN JS ===== -->
+    <script src="~/FrontFinal/loginAssets/js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script>
+        $(document).on('keypress', function (e) {
+            if (e.which == 13) {
+
+                var Matricule = $("#Matricule").val();
+                var password = $("#password").val();
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url:  "@Url.Action("login", "Shared")",
+                    data: { Matricule, password },
+                    success: function (data) {
+                        console.log("data", data);
+
+                        if (data == "Admin") {
+
+                            location.href = "/Admin/Dashboard";
+                        } else if (data == "Chef")
+                        {
+                            location.href = "/Chef/Dashboard";
+
+                        }
+                        else if (data == "RH") {
+                            location.href = "/RH/Dashboard";
+                        }
+                        else if (data == "Demandeur") {
+
+                            location.href = "/Demandeur/NouvelleDemandeRecrutement";
+
+                        }
+                        else  {
+
+                            $("#Matricule").val("");
+                            $("#password").val("");
+                        }
+                    }
+                });
+            }
+        });
+        $("#Btnsubmit").click(function () {
+
+            var Matricule = $("#Matricule").val();
+            var password = $("#password").val();
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url:  "@Url.Action("login", "Shared")",
+                    data: { Matricule, password },
+                    success: function (data) {
+                        console.log("data", data);
+
+                        if (data == "Admin") {
+
+                            location.href = "/Admin/Dashboard";
+                        } else if (data == "Chef") {
+                            location.href = "/Chef/Dashboard";
+
+                        }
+                        else if (data == "RH") {
+                            location.href = "/RH/Dashboard";
+                        }
+                        else if (data == "Demandeur") {
+                            location.href = "/Demandeur/NouvelleDemandeRecrutement";
+
+                        }
+                        else {
+
+                            $("#Matricule").val("");
+                            $("#password").val("");
+                        }
+                    }
+                });
+        });
+
+        $(document).ready(function () {
+            $("#show_hide_password a").on('click', function (event) {
+                event.preventDefault();
+                if ($('#show_hide_password input').attr("type") == "text") {
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass("fa-eye-slash");
+                    $('#show_hide_password i').removeClass("fa-eye");
+                } else if ($('#show_hide_password input').attr("type") == "password") {
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass("fa-eye-slash");
+                    $('#show_hide_password i').addClass("fa-eye");
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>

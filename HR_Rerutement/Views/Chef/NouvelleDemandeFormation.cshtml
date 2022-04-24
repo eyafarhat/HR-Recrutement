@@ -1,0 +1,213 @@
+﻿@model HR_Rerutement.Models.Demandeur
+@{
+    ViewBag.Title = "NouvelleDemandeFormation";
+    Layout = "~/Views/Shared/_LayoutChef.cshtml";
+}
+
+
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header" style="display:none">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Nouvelle demande de Formation</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Dashboard","Chef")">Acceuil</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Nouvelle demande</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix">
+                <h4 class="text-black h4">Nouvelle demande de Formation</h4>
+            </div>
+            <div class="wizard-content">
+                <form class="tab-wizard wizard-circle wizard">
+                    <h5>Personal Info</h5>
+                    <section>
+
+                        <h6 class="mb-30"> Personal Info</h6>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nom et Prenom  :</label>
+                                    <input type="text" class="form-control" id="NomPrenom" placeholder="Nom et Prenom" value="@Model.Empl_Nom_Prenom" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Date souhaitée :
+                                    </label>
+                                    <input type="date" id="last-start-date" value="@string.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </section>
+                    <!-- Step 2 -->
+                    <h5>
+                        Besoins en Formation
+                    </h5>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Service ou Direction :</label>
+                                    <select id="Service" class="form-control" required>
+                                        <option value="Direction Générale">Direction Générale</option>
+                                        <option value="Direction Administratif et Financier">Direction Administratif et Financier</option>
+                                        <option value="Direction Achat">Direction Achat</option>
+                                        <option value="Direction Production et Maintenance">Direction Production et Maintenance</option>
+                                        <option value="Direction Ressources Humaines">Direction Ressources Humaines</option>
+                                        <option value="Direction Grand compte et Projets">Direction Grand compte et Projets</option>
+                                        <option value="Direction Supply Chain">Direction Supply Chain</option>
+                                        <option value="Direction Qualité">Direction Qualité</option>
+                                        <option value="Service Méthodes">Service Méthodes</option>
+                                        <option value="Service Process">Service Process</option>
+                                        <option value=" Service Test"> Service Test</option>
+                                        <option value="Service IT">Service IT</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Type de la formation :</label>
+                                    <select id="typeFormation" class="form-control" required>
+
+                                        <option value="Interne Indirect">Interne Indirect</option>
+                                        <option value="Interne Direct">Interne Direct</option>
+                                        <option value="Externe">Externe</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Intitulé de la formation :</label>
+                                    <select id="IntituleFormation" class="form-control" required>
+
+                                        <option value="P1 : Formation qualité ou bien réglementaire">P1 : Formation qualité ou bien réglementaire</option>
+                                        <option value="P2: Formation obligatoire par rapport au fonction">P2: Formation obligatoire par rapport au fonction</option>
+                                        <option value="P3 :Formation de Développement de compétence">P3 :Formation de Développement de compétence</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Priorité :</label>
+                                    <select id="Priorite" class="form-control" required>
+
+                                        <option value="Normal">Normal</option>
+                                        <option value="Normal">Critique</option>
+                                        <option value="Urgent">Urgent</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label> Profil Cible :</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Step 4 -->
+                    <h5>Objectif</h5>
+                    <section>
+                        <p class="mb-30">Objectif</p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea id="Objectif" class="form-control" placeholder="Objectif"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </section>
+                </form>
+            </div>
+        </div>
+
+
+
+
+        <!-- success Popup html Start -->
+        <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center font-18">
+                        <h3 class="mb-20">Demande Envoyée</h3>
+                        <div class="mb-30 text-center"><img src="~/FrontFinal/theme/vendors/images/success.png"></div>
+                        Nouvelle demande de Formation a été crée avec succès
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="CreerDemandes">Merci !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- success Popup html End -->
+    </div>
+
+
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+<script>
+        $('#CreerDemandes').on('click', function () {
+
+            var formation = {};
+            formation.IntituleFormation = $("#IntituleFormation").val();
+            formation.Objectif = $("#Objectif").val();
+            formation.Priorite = $("#Priorite").val();
+            formation.NomPrenom = $("#NomPrenom").val();
+            formation.DateFormation = $("#DateFormation").val();
+            formation.Service = $("#Service").val();
+            formation.typeFormation = $("#typeFormation").val();
+
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: "@Url.Action("creerDemande", "Chef")",
+                data: { formation },
+                success: function (data) {
+                    console.log("data creerDemande ", data);
+                    Swal.fire({
+
+                        icon: 'success',
+                        title: 'Demande Crée',
+                        text: 'Demande Crée',
+
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        location.href = "/Chef/HistoriqueDemandeFormation";
+                    })
+
+
+
+                }
+            })
+        })
+</script>

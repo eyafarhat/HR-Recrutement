@@ -1,0 +1,562 @@
+﻿@model HR_Rerutement.Models.Recrutement
+@{
+    ViewBag.Title = "DetailsRec";
+    Layout = "~/Views/Shared/_LayoutChef.cshtml";
+}
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Acceuil</title>
+    <link rel="shortcut icon" href="./assets/images/TISCircuit.png">
+   
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+    <!-- Icons CSS -->
+    
+</head>
+
+<body class="vertical  light  ">
+    <div class=" pd-ltr-20 xs-pd-20-10">
+
+
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="title">
+                                <h4>
+                                    Plus de Details
+                                </h4>
+                            </div>
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a>Acceuil</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page"> Plus de Details</li>
+                                </ol>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row mb-2 justify-content-center">
+
+                    <div class="col-12">
+
+                        <form action="@Url.Action("ModifierDemandeRecrutement","Chef")" method="post" enctype="multipart/form-data" id="form">
+                            <section class="content">
+                                <div class="mb-2 align-items-center container-fluid">
+                                    <div class="card-body my-n2">
+                                        <div class="card">
+
+                                            <div class="card-body my-n2">
+
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+
+                                                                <div class="form-row">
+
+                                                                    <div class="form-group col-md-6">
+
+                                                                        <label for="inputtext4">Nom et Prenom :</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text" id="basic-addon1">
+                                                                                    <span class="iconify" data-icon="ph:users-duotone"
+                                                                                          data-width="20" data-height="20"></span>
+                                                                                </span>
+
+                                                                            </div>
+                                                                            <input type="text" class="form-control" name="NomPrenom" placeholder="Nom et Prenom" readonly value="@Model.NomPrenom">
+                                                                            <input type="hidden" class="form-control" value="@Model.Id_demande" name="Id_demande" id="IdRecrutment">
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="form-group col-md-1"></div>
+                                                                    <div class="form-group col-md-5">
+
+                                                                        <label for="date-input1">Date souhaitée :</label>
+                                                                        <div class="input-group mb-3">
+
+                                                                            <div class="input-group">
+                                                                                <input type="date" id="last-start-date" value="@string.Format("{0:yyyy-MM-dd}", @Model.DateDemandeR)" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="form-group row">
+                                                                    &nbsp; &nbsp; &nbsp; <h5 class="card-title">Fonction</h5>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 col-form-label">Titre de la Fonction à pourvoir :</label>
+                                                                    <div class="col">
+                                                                        <input type="text" value="@Model.TitreRecrutement" name="TitreRecrutement" class="form-control" placeholder="Nom du fonction">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 col-form-label">Nature du fonction : </label>
+                                                                    <div class="col">
+                                                                        <select class="custom-select" required name="Fonction_Demande" id="Fonction_Demande">
+                                                                            @if (@Model.Contrat.Equals("Création"))
+                                                                            {
+
+
+                                                                                <option value="Création" selected>Création</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="Création">Création</option>
+                                                                            }
+                                                                            @if (@Model.Contrat.Equals("Renforcement"))
+                                                                            {
+
+
+                                                                                <option value="Renforcement" selected>Renforcement</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="Renforcement">Renforcement</option>
+                                                                            }
+                                                                            @if (@Model.Contrat.Equals("Remplacement"))
+                                                                            {
+
+
+                                                                                <option value="Remplacement" selected>Remplacement</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="Remplacement">Remplacement</option>
+                                                                            }
+
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row" id="nomCollaborateur">
+                                                                    <label class="col-md-4 col-form-label">Nom du collaborateur à remplacé :</label>
+                                                                    <div class="col">
+                                                                        <input type="text" value="@Model.NomCollaborateur" name="NomCollaborateur" class="form-control" placeholder="Nom du collaborateur à remplacé">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 col-form-label">Type du fonction :</label>
+                                                                    <div class="col">
+                                                                        <select class="custom-select" required name="TypeRecrutement">
+                                                                            @if (@Model.Contrat.Equals("Interne"))
+                                                                            {
+
+
+                                                                                <option value="Interne" selected>Interne</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="Interne">Interne</option>
+                                                                            }
+                                                                            @if (@Model.Contrat.Equals("Externe"))
+                                                                            {
+
+
+                                                                                <option value="Externe" selected>Externe</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="Externe">Externe</option>
+                                                                            }
+                                                                            @if (@Model.Contrat.Equals("Interne et Externe"))
+                                                                            {
+
+
+                                                                                <option value="Interne et Externe" selected>Interne et Externe</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="Interne et Externe">Interne et Externe</option>
+                                                                            }
+
+
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 col-form-label">Nombre de poste à pourvoir :</label>
+                                                                    <div class="col">
+                                                                        <input type="number" value="@Model.Nb_poste" name="Nb_poste" class="form-control" placeholder="Nombre de poste à pourvoir">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="form-group row">
+                                                                    &nbsp; &nbsp; &nbsp; <h5 class="card-title">Descriptif de la mission</h5>
+                                                                </div>
+
+                                                                <div class="custom-control custom-radio">
+                                                                    @if (@Model.Mission != null && @Model.Mission.Equals("Correspond exactement à la Fiche Fonction du"))
+                                                                    {<input type="radio" value="Correspond exactement à la Fiche Fonction du" name="Mission" class="custom-control-input" checked>}
+                                                                    else
+                                                                    { <input type="radio" value="Correspond exactement à la Fiche Fonction du" name="Mission" class="custom-control-input">}
+                                                                    <label class="custom-control-label" for="customRadio3">Correspond exactement à la Fiche Fonction du :</label>
+                                                                    <div class="form-group mb-3">
+
+                                                                        <div class="form-group mb-3">
+                                                                            <input type="file" id="example-fileinput" name="Demande" class="form-control-file">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="custom-control custom-radio">
+                                                                    @if (@Model.Mission != null && @Model.Mission.Equals("Nouvelle Fiche Fonction"))
+                                                                    {<input type="radio" value="Nouvelle Fiche Fonction" name="Mission" class="custom-control-input" checked>}
+                                                                    else
+
+                                                                    { <input type="radio" value="Nouvelle Fiche Fonction" name="Mission" class="custom-control-input">
+                                                                    }
+                                                                    <label class="custom-control-label"
+                                                                           for="customRadio1">Nouvelle Fiche Fonction</label>
+                                                                </div>
+
+                                                                <div class="custom-control custom-radio">
+                                                                    @if (@Model.Mission != null && @Model.Mission.Equals("Modification de mission (s) dans la Fiche Fonction"))
+                                                                    {
+
+                                                                        <input type="radio" value="Modification de mission (s) dans la Fiche Fonction" name="Mission" class="custom-control-input" checked>}
+                                                                    else
+                                                                    {
+                                                                        <input type="radio" value="Modification de mission (s) dans la Fiche Fonction" name="Mission" class="custom-control-input">}
+
+
+                                                                    <label class="custom-control-label" for="customRadio2">
+                                                                        Modification de mission (s) dans la Fiche Fonction
+
+                                                                    </label>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-4">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="form-group row">
+                                                                    &nbsp; &nbsp; &nbsp;<h5 class="card-title">Profil de la fonction</h5>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 col-form-label">
+                                                                        Nature de contrat :
+
+                                                                    </label>
+                                                                    <div class="col">
+                                                                        <select class="form-control selectpicker" name="Contrat">
+                                                                            @if (@Model.Contrat.Equals("CDI"))
+                                                                            {
+
+
+                                                                                <option value="CDI" selected>CDI</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="CDI">CDI</option>
+                                                                            }
+                                                                            @if (@Model.Contrat.Equals("CDD"))
+                                                                            {
+
+
+                                                                                <option value="CDD" selected>CDD</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="CDD">CDD</option>
+                                                                            }
+                                                                            @if (@Model.Contrat.Equals("CVP"))
+                                                                            {
+
+
+                                                                                <option value="CVP" selected>CVP</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="CVP">CVP</option>
+                                                                            }
+                                                                            @if (@Model.Contrat.Equals("CVP"))
+                                                                            {
+
+
+                                                                                <option value="INTRIM" selected>INTRIM</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="INTRIM">INTRIM</option>
+                                                                            }
+
+
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 col-form-label">Diplôme :</label>
+                                                                    <div class="col">
+                                                                        <input type="text" value="@Model.Diplome" name="Diplome" class="form-control" placeholder="Diplôme">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 col-form-label">
+                                                                        Nombre d’année d’expérience souhaité :
+
+                                                                    </label>
+                                                                    <div class="col">
+
+                                                                        <select class="form-control selectpicker" name="Nb_experience">
+                                                                            @if (@Model.Nb_experience.Equals("Pas d'experience"))
+                                                                            {
+
+
+                                                                                <option value="Pas d'experience" selected>Pas d'experience</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="Pas d'experience">Pas d'experience</option>
+                                                                            }
+
+                                                                            @if (@Model.Nb_experience.Equals("0-2 ans"))
+                                                                            {
+
+
+                                                                                <option value="0-2 ans" selected>0-2 ans</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="0-2 ans">0-2 ans</option>
+                                                                            }
+                                                                            @if (@Model.Nb_experience.Equals("2-5 ans"))
+                                                                            {
+
+
+                                                                                <option value="2-5 ans" selected>2-5 ans</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="2-5 ans">2-5 ans</option>
+                                                                            }
+                                                                            @if (@Model.Nb_experience.Equals("+ 5 ans"))
+                                                                            {
+
+
+                                                                                <option value="+ 5 ans" selected>+ 5 ans</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="+ 5 ans">+ 5 ans</option>
+                                                                            }
+
+
+
+
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label> Remarques concernant le profil ou exigences</label>
+                                                    <textarea class="form-control" name="Remarque" placeholder="Remarques">@Model.Remarque</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label> Affectation</label>
+                                                    <textarea class="form-control" name="Affectation" placeholder="Affectation">@Model.Affectation</textarea>
+                                                </div>
+
+                                            </div><!-- /.card-body -->
+
+
+                                        </div>
+                                    </div> <!-- Striped rows -->
+                                    <br>
+
+                                    <div class="text-center">
+                                        <button class="btn mb-5 btn text-white" style="background-color:forestgreen !important" id="ModifierDetails">
+                                            <span class="iconify" data-icon="bi:check" style="color:white" data-width="20" data-height="20"></span> Modifier
+                                        </button>  &nbsp &nbsp &nbsp
+                                        <button type="button" class="btn mb-5 btn text-white" data-dismiss="modal" style="background-color:#bb3e03 !important" id="SupprimerDetails">
+                                            <span class="iconify" data-icon="icomoon-free:cancel-circle" style="color: white;" data-width="20" data-height="20"></span> Supprimer
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </section>
+                        </form>
+
+
+                    </div> <!-- .row-->
+                </div> <!-- .col-12 -->
+            </div> <!-- .row -->
+        </main>
+    </div>
+
+
+
+
+
+    <!-- Sweet Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <script>
+        $("#Send").on("click", function () {
+
+            var Fonction_Demande = $("#Fonction_Demande").val();
+            var collaborateur = $("#collaborateur").val();
+
+
+            if (Fonction_Demande == "Remplacement" && collaborateur == '') {
+
+                alert("nom vide");
+                return;
+
+            }
+            $("#form").submit();
+
+
+        })
+        $("#Fonction_Demande").on("change", function () {
+
+            var Fonction_Demande = $("#Fonction_Demande").val();
+            if (Fonction_Demande == "Remplacement") {
+                $("#nomCollaborateur").show();
+            } else {
+
+                $("#nomCollaborateur").hide();
+            }
+
+
+        })
+
+
+        $('#ModifierDetails').on("click", function () {
+
+
+            var Fonction_Demande = $("#Fonction_Demande").val();
+            var collaborateur = $("#collaborateur").val();
+
+
+            if (Fonction_Demande == "Remplacement" && collaborateur == '') {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Veuillez remplir le champs de Remplacement ',
+                    footer: ''
+                })
+                return;
+
+            }
+            $("#form").submit();
+
+        })
+        $('#SupprimerDetails').on("click", function () {
+
+            var idRecrutement = $("#IdRecrutment").val();
+
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: "@Url.Action("DeleteDemande", "Chef")",
+            data: { idRecrutement },
+            success: function (data) {
+                console.log("data", data);
+
+                Swal.fire({
+
+                    icon: 'success',
+                    title: 'Demande Supprimé',
+                    text: 'Demande Supprimé !!',
+
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    location.href = "/Chef/HistoriqueDemandeRecrutement";
+                })
+
+            }
+        });
+        })
+
+
+
+
+
+
+
+
+    </script>
+    <script>
+        var uptarg = document.getElementById('drag-drop-area');
+        if (uptarg) {
+            var uppy = Uppy.Core().use(Uppy.Dashboard,
+                {
+                    inline: true,
+                    target: uptarg,
+                    proudlyDisplayPoweredByUppy: false,
+                    theme: 'dark',
+                    width: 770,
+                    height: 210,
+                    plugins: ['Webcam']
+                }).use(Uppy.Tus,
+                    {
+                        endpoint: 'https://master.tus.io/files/'
+                    });
+            uppy.on('complete', (result) => {
+                console.log('Upload complete! We’ve uploaded these files:', result.successful)
+            });
+        }
+    </script>
+
+
+    <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+    <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,276 @@
+﻿@model HR_Rerutement.Models.Demandeur
+@{
+    ViewBag.Title = "NouvelleDemandeRecrutement";
+    Layout = "~/Views/Shared/_LayoutRH.cshtml";
+}
+
+
+
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header" style="display:none">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Form Wizards</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Dashboard","RH")">Acceuil</a></li>
+
+                            <li class="breadcrumb-item active" aria-current="page">Nouvelle demande</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix">
+                <h4 class="text-black h4">Nouvelle demande de Recrutement</h4>
+            </div>
+            <div class="wizard-content">
+                <form action="@Url.Action("NouvelleDemandeRecrutement","RH")" method="post" enctype="multipart/form-data" id="form" class="tab-wizard wizard-circle wizard">
+
+                    <h5>Personal Info</h5>
+                    <section>
+
+                        <h6 class="mb-30">Personal Info</h6>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nom et Prenom  :</label>
+                                    <input type="text" class="form-control" name="NomPrenom" value="@Model.Empl_Nom_Prenom" placeholder="Nom et Prenom" readonly>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Date souhaitée :
+                                    </label>
+
+                                    <input type="date" id="last-start-date" value="@string.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="form-control" />
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="mb-30">Profil de la fonction</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Nature de contrat :</label>
+                                    <select class="form-control selectpicker" name="Contrat">
+                                        <option value="CDI">CDI</option>
+                                        <option value="CDD">CDD</option>
+                                        <option value="CVP">CVP</option>
+                                        <option value="INTRIM">INTRIM</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Nombre d’année d’expérience souhaité :</label>
+                                    <select class="form-control selectpicker" name="Nb_experience">
+                                        <option value="Pas d'experience">Pas d'experience</option>
+                                        <option value="0-2 ans">0-2 ans</option>
+                                        <option value="2-5 ans">2-5 ans</option>
+                                        <option value="+ 5 ans">+ 5 ans</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Diplôme : </label>
+                                    <input type="text" id="example-email" name="Diplome" class="form-control" placeholder="Diplôme">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </section>
+
+                    <!-- Step 2 -->
+                    <h5>Fonction</h5>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Titre de la Fonction à pourvoir : </label>
+
+                                    <input type="text" id="example-email" name="TitreRecrutement" class="form-control" placeholder="Nom du fonction">
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nature du fonction : </label>
+                                    <div class="col">
+                                        <select class="custom-select" required id="Fonction_Demande" name="Fonction_Demande">
+                                            <option value="Création">Création</option>
+                                            <option value="Renforcement">Renforcement</option>
+                                            <option value="Remplacement">Remplacement</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="nomCollaborateur">
+                                    <label>Nom du collaborateur à remplacé : </label>
+                                    <div class="col">
+                                        <input type="text" id="collaborateur" name="NomCollaborateur" class="form-control" placeholder="Nom du collaborateur à remplacé" required>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label> Type du fonction :</label>
+                                    <div class="col">
+                                        <select class="custom-select" required name="TypeRecrutement">
+                                            <option value="Interne">Interne</option>
+                                            <option value="Externe">Externe</option>
+                                            <option value="Interne et Externe">Interne et Externe</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nombre de poste à pourvoir : </label>
+
+                                    <input type="number" name="Nb_poste" class="form-control" placeholder="Nombre de poste à pourvoir">
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Step 3 -->
+                    <h5>
+                        Descriptif de la mission
+                    </h5>
+                    <section>
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" name="Mission" value="Correspond exactement à la Fiche Fonction du" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio3">Correspond exactement à la Fiche Fonction du :</label>
+                                    <div class="form-group mb-3">
+                                        <div class="file-upload-wrapper" data-text="Select your file!">
+                                            <input name="file-upload-field" type="file" class="file-upload-field" value="">
+                                        </div>
+
+                                        @*<div class="form-group mb-3">
+                                                <input type="file" id="example-fileinput" name="Demande" class="form-control-file">
+                                            </div>*@
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="Mission" value="Nouvelle Fiche Fonction" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio1">Nouvelle Fiche Fonction</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" name="Mission" value="Modification de mission (s) dans la Fiche Fonction" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio2">
+                                        Modification de mission (s) dans la Fiche Fonction
+
+                                    </label>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Step 4 -->
+                    <h5>Remarques</h5>
+                    <section>
+                        <h6 class="mb-30">Remarques concernant le profil ou exigences</h6>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="Remarques concernant le profil ou exigences"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="mb-30">Affectation</h6>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="Affectation"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </form>
+            </div>
+        </div>
+
+
+
+
+        <!-- success Popup html Start -->
+        <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center font-18">
+                        <h3 class="mb-20">Demande Envoyée</h3>
+                        <div class="mb-30 text-center"><img src="~/FrontFinal/theme/vendors/images/success.png"></div>
+                        Nouvelle demande de recrutement a été crée avec succès
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="Send">merci !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- success Popup html End -->
+    </div>
+
+
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+<script>
+    $("#nomCollaborateur").hide();
+    $("#Send").on("click", function () {
+
+        var Fonction_Demande = $("#Fonction_Demande").val();
+        var collaborateur = $("#collaborateur").val();
+
+
+        if (Fonction_Demande == "Remplacement" && collaborateur == '') {
+
+            alert("nom vide");
+            return;
+
+        }
+        $("#form").submit();
+
+
+    })
+
+</script>
+

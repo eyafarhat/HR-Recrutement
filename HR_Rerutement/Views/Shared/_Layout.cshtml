@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HR-Recrutement intra-site</title>
+    <link rel="shortcut icon" href="~/Tis.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="~/FrontFinal/theme/vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontFinal/theme/vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontFinal/theme/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontFinal/theme/src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/FrontFinal/theme/vendors/styles/style.css">
+
+    <link rel="stylesheet" type="text/css" href="~/FrontFinal/theme/src/plugins/jquery-steps/jquery.steps.css">
+
+
+
+</head>
+
+<body class="header-white sidebar-light">
+
+    <div class="header">
+        <div class="header-left">
+            <div class="menu-icon dw dw-menu"></div>
+            <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
+            <div class="header-search">
+                <form>
+                    <div class="form-group mb-0" style="border-radius:30px">
+                        <i class="dw dw-search2 search-icon"></i>
+                        <input type="text" class="form-control search-input" placeholder="Search Here">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
+                                <i class="ion-arrow-down-c"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-2 col-form-label">From</label>
+                                    <div class="col-sm-12 col-md-10">
+                                        <input class="form-control form-control-sm form-control-line" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-2 col-form-label">To</label>
+                                    <div class="col-sm-12 col-md-10">
+                                        <input class="form-control form-control-sm form-control-line" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-2 col-form-label">Subject</label>
+                                    <div class="col-sm-12 col-md-10">
+                                        <input class="form-control form-control-sm form-control-line" type="text">
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="header-right">
+
+
+
+
+            <div class="user-info-dropdown">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                        <span class="user-icon">
+                            <img src="~/FrontFinal/theme/vendors/images/photo1.jpg" alt="">
+                        </span>
+                        <span class="user-name">admin-user</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                        <a class="dropdown-item" href="@Url.Action("MonCompte", "Admin")"><i class="dw dw-user1"></i> Profile</a>
+                        <a class="dropdown-item"><i class="dw dw-settings2"></i> Setting</a>
+                        <a class="dropdown-item" href="@Url.Action("Deconnexion", "Admin")"><i class="dw dw-logout"></i> Log Out</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="left-side-bar">
+        <div class="brand-logo" style="margin-bottom: 90px; border: none; ">
+            <span href="@Url.Action("Dashboard", "Chef")">
+                <img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
+                <img src="~/Tis.png" style="width: 80%; position: relative; top: 26px; margin-left: 6%; ">
+            </span>
+            <div class="close-sidebar" data-toggle="left-sidebar-close">
+                <i class="ion-close-round"></i>
+            </div>
+        </div>
+        <div class="menu-block customscroll">
+            <div class="sidebar-menu">
+                <ul id="accordion-menu">
+
+                    <li>
+                        <a href="@Url.Action("Dashboard", "Admin")" class="dropdown-toggle no-arrow" style="background: transparent; color: black; font-size: 16px; font-weight: 700;">
+                            <span class="micon dw dw-home" style="background: transparent; color: #e35865; border-radius: 20px;font-size: 19px;"></span><span class="mtext">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ConsulterEmployee", "Admin")" class="dropdown-toggle no-arrow" style="background: transparent; color: black; font-size: 14px; font-weight: 700;" ">
+                            <span class="micon dw dw-agenda" style="background: transparent; color: #e35865; border-radius: 20px; font-size: 19px;"></span><span class="mtext">Consulter Employee</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("GestionComptes", "Admin")" class="dropdown-toggle no-arrow" style="background: transparent; color: black; font-size: 14px; font-weight: 700;">
+                            <span class="micon dw dw-user-2" style="background: transparent; color: #e35865; border-radius: 20px; font-size: 19px;"></span><span class="mtext">Gestion des Comptes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Deconnexion", "Admin")" class="dropdown-toggle no-arrow" style="background: transparent; color: black; font-size: 15px; font-weight: 700;">
+                            <span class="micon  dw dw-logout-2" style="background: transparent; color: #e35865; border-radius: 20px; font-size: 19px;"></span><span class="mtext">Déconnexion</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-menu-overlay"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="main-container">
+        <!-- Content Header (Page header) -->
+
+
+        @RenderBody()
+
+
+
+
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- js -->
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src="~/FrontFinal/theme/vendors/scripts/core.js"></script>
+    <script src="~/FrontFinal/theme/vendors/scripts/script.min.js"></script>
+    <script src="~/FrontFinal/theme/vendors/scripts/process.js"></script>
+    <script src="~/FrontFinal/theme/vendors/scripts/layout-settings.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/apexcharts/apexcharts.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/FrontFinal/theme/vendors/scripts/dashboard3.js"></script>
+    <script src="~/FrontFinal/theme/vendors/scripts/dashboard.js"></script>
+
+    <script src="~/FrontFinal/theme/src/plugins/jquery-steps/jquery.steps.js"></script>
+    <script src="~/FrontFinal/theme/vendors/scripts/steps-setting.js"></script>
+
+
+
+    <script>
+
+        $("#deconnexionChef").click(function () {
+
+              $.ajax({
+            dataType: "json",
+            type: "GET",
+            url: "@Url.Action("Deconnexion", "Admin")",
+            success: function (data) {
+
+                console.log("data", data);
+                window.location="~/shared/login";
+
+            }
+        });
+        })
+
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+
+
