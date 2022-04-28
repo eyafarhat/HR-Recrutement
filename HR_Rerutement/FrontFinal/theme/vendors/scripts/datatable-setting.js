@@ -18,6 +18,8 @@ $('document').ready(function(){
 		},
 	});
 
+
+
 	$('.data-table-export').DataTable({
 		scrollCollapse: true,
 		autoWidth: false,
@@ -50,6 +52,17 @@ $('document').ready(function(){
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
 		}
+	});
+
+	var table = $('.data-table').DataTable();
+	table.destroy();
+	$('.data-table').DataTable({
+		paging: true
+	});
+
+	$('.data-table').DataTable({
+		destroy: true,
+		searching: true
 	});
 
 	var multipletable = $('.multiple-select-row').DataTable();
@@ -95,3 +108,4 @@ $('document').ready(function(){
 		}
 	});
 });
+

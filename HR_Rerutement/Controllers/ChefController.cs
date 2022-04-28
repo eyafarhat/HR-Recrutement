@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using HR_Rerutement.Models;
+using Newtonsoft.Json;
 
 namespace HR_Rerutement.Controllers
 {
@@ -32,7 +33,7 @@ namespace HR_Rerutement.Controllers
         public ActionResult HistoriqueDemandeRecrutement()
         {
             var user = Session["CurrentUser"] as Demandeur;
-           
+
             return View(context.Recrutements.Where(x => x.Matricule_Createur.Equals(user.Empl_Matricule)).ToList());
         }
 
@@ -54,10 +55,10 @@ namespace HR_Rerutement.Controllers
             //    return View(context.Recrutements.Where(x => !x.RoleCreateur.Equals("RH")).ToList());
             List<Recrutement> recrutementsFinal = new List<Recrutement>();
             var listRecrutements = context.Recrutements.Where(x => !x.RoleCreateur.Equals("RH")).ToList();
-            foreach( var Recrutement in listRecrutements)
+            foreach (var Recrutement in listRecrutements)
             {
-              var demandeur= context.Demandeurs.Find(Recrutement.Matricule_Createur);
-                if (( demandeur != null && demandeur.Empl_MatResponsable.Equals(user.Empl_Matricule)) || Recrutement.Matricule_Createur.Equals(user.Empl_Matricule))
+                var demandeur = context.Demandeurs.Find(Recrutement.Matricule_Createur);
+                if ((demandeur != null && demandeur.Empl_MatResponsable.Equals(user.Empl_Matricule)) || Recrutement.Matricule_Createur.Equals(user.Empl_Matricule))
                 { recrutementsFinal.Add(Recrutement); }
             }
             return View(recrutementsFinal);
@@ -87,7 +88,7 @@ namespace HR_Rerutement.Controllers
         }
 
         [HttpPost]
-        public JsonResult RefuserDemande(int iddemande,string causeRefus)
+        public JsonResult RefuserDemande(int iddemande, string causeRefus)
         {
             var Recrutementdb = context.Recrutements.Find(iddemande);
             Recrutementdb.Statut = Statut.Refusé;
@@ -125,12 +126,12 @@ namespace HR_Rerutement.Controllers
             var user = Session["CurrentUser"] as Demandeur;
             return View(user);
         }
-      
+
 
 
         public ActionResult DetailsRec(int id)
         {
-            var Recrutement =  context.Recrutements.Find(id);
+            var Recrutement = context.Recrutements.Find(id);
             return View(Recrutement);
         }
         public ActionResult DetailsForm(int id)
@@ -154,7 +155,7 @@ namespace HR_Rerutement.Controllers
         [HttpPost]
         public ActionResult NouvelleDemandeRecrutement(Recrutement recrutement, HttpPostedFileBase Demande)
         {
-           
+
             string Savepath = "";
             var user = Session["CurrentUser"] as Demandeur;
             recrutement.Matricule_Createur = user.Empl_Matricule;
@@ -179,7 +180,7 @@ namespace HR_Rerutement.Controllers
             }
             context.Recrutements.Add(recrutement);
             context.SaveChanges();
-            
+
             return View("HistoriqueDemandeRecrutement", context.Recrutements.Where(x => x.Matricule_Createur.Equals(user.Empl_Matricule)).ToList());
         }
         [HttpPost]
@@ -203,7 +204,7 @@ namespace HR_Rerutement.Controllers
             demandeDB.Nb_experience = recrutement.Nb_experience;
 
             string Savepath = "";
-           
+
             recrutement.Matricule_Createur = user.Empl_Matricule;
             recrutement.Statut = Statut.EnAttente;
             recrutement.RoleCreateur = user.Permission.Role.Role1;
@@ -224,12 +225,12 @@ namespace HR_Rerutement.Controllers
                 recrutement.FileName = FileName;
                 recrutement.Savepath = Savepath;
             }
-            
+
             context.SaveChanges();
 
 
-            return View("HistoriqueDemandeRecrutement",context.Recrutements.Where(x => x.Matricule_Createur.Equals(user.Empl_Matricule)).ToList()); 
-           
+            return View("HistoriqueDemandeRecrutement", context.Recrutements.Where(x => x.Matricule_Createur.Equals(user.Empl_Matricule)).ToList());
+
         }
 
         [HttpPost]
@@ -259,6 +260,7 @@ namespace HR_Rerutement.Controllers
         {
             var user = Session["CurrentUser"] as Demandeur;
             formation.Matricule_Createur = user.Empl_Matricule;
+
             formation.Statut = Statut.EnAttente;
             formation.RoleCreateur = user.Permission.Role.Role1;
             context.Formations.Add(formation);
@@ -273,14 +275,58 @@ namespace HR_Rerutement.Controllers
         public ActionResult msg()
         {
 
-            return View();
+
+            var user = Session["CurrentUser"] as Demandeur;
+
+            return View(context.Demandeurs.ToList());
 
 
         }
+       
+
+        [HttpPost]
+        public JsonResult GetDataMessages(string matricule_user)
+        {
+
+            // Initialization.  
+            JsonResult result = new JsonResult();
+
+
+            // var data = context.Message.ToList();
+
+            var data = context.Message.Where(d => d.id_receiver == matricule_user || d.id_sender == matricule_user).ToList();
+
+            result = Json(JsonConvert.SerializeObject(data), JsonRequestBehavior.AllowGet);
+
+            return result;
+
+        }
+
+        [HttpPost]
+        public JsonResult newMessage(Message message, string content, string receiver)
+        {
+
+            var user = Session["CurrentUser"] as Demandeur;
+
+            message.id_receiver = receiver;
+
+            message.id_sender = user.Empl_Matricule;
+
+            message.contenu = content;
+
+            context.Message.Add(message);
+
+            context.SaveChanges();
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+
+
+        }
+
         [HttpPost]
         public JsonResult DeleteDemande(int idRecrutement)
         {
-           var demandeDB = context.Demandes.Find(idRecrutement);
+            var demandeDB = context.Demandes.Find(idRecrutement);
             context.Demandes.Remove(demandeDB);
             context.SaveChanges();
             return Json("Success", JsonRequestBehavior.AllowGet);
