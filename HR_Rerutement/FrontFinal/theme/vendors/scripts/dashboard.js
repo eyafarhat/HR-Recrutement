@@ -309,10 +309,10 @@ var options5 = {
 		colors: ['transparent']
 	},
 	series: [{
-		name: 'In Progress',
+		name: 'Employees',
 		data: [40, 28, 47, 22, 34, 25]
 	}, {
-		name: 'Complete',
+		name: 'Comptes',
 		data: [30, 20, 37, 10, 28, 11]
 	}],
 	xaxis: {

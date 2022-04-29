@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using HR_Rerutement.Models;
+using Newtonsoft.Json;
 
 namespace HR_Rerutement.Controllers
 {
@@ -19,6 +20,7 @@ namespace HR_Rerutement.Controllers
         {
 
             context = new ProjectContext();
+
         }
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
@@ -101,7 +103,50 @@ namespace HR_Rerutement.Controllers
 
         public ActionResult Chat()
         {
-            return View();
+
+            var user = Session["CurrentUser"] as Demandeur;
+
+            return View(context.Demandeurs.ToList());
+
+            //return View();
+        }
+        [HttpPost]
+        public JsonResult GetDataMessages(string matricule_user)
+        {
+
+            // Initialization.  
+            JsonResult result = new JsonResult();
+
+
+            // var data = context.Message.ToList();
+
+            var data = context.Message.Where(d => d.id_receiver == matricule_user || d.id_sender == matricule_user).ToList();
+
+            result = Json(JsonConvert.SerializeObject(data), JsonRequestBehavior.AllowGet);
+
+            return result;
+
+        }
+
+        [HttpPost]
+        public JsonResult newMessage(Message message, string content, string receiver)
+        {
+
+            var user = Session["CurrentUser"] as Demandeur;
+
+            message.id_receiver = receiver;
+
+            message.id_sender = user.Empl_Matricule;
+
+            message.contenu = content;
+
+            context.Message.Add(message);
+
+            context.SaveChanges();
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+
+
         }
         [HttpPost]
         public ActionResult ModifierDemandeRecrutement(Recrutement recrutement, HttpPostedFileBase Demande)

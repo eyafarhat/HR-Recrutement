@@ -98,7 +98,7 @@
 
 
 
-        
+
             <div class="user-info-dropdown">
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -136,7 +136,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
 
-                   
+
 
 
                     <li class="dropdown">
@@ -159,7 +159,7 @@
                         </ul>
                     </li>
 
-                  
+
 
                     <li>
                         <a href="@Url.Action("Deconnexion", "Demandeur")" class="dropdown-toggle no-arrow" style="background: transparent; color: black; font-size: 15px; font-weight: 700;">
@@ -215,12 +215,23 @@
     <script src="~/FrontFinal/theme/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/FrontFinal/theme/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
     <script src="~/FrontFinal/theme/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <script src="~/FrontFinal/theme/vendors/scripts/dashboard3.js"></script>
+    <!-- buttons for Export datatable -->
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/buttons.print.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/buttons.html5.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/buttons.flash.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/pdfmake.min.js"></script>
+    <script src="~/FrontFinal/theme/src/plugins/datatables/js/vfs_fonts.js"></script>
+    <!-- Datatable Setting js -->
+    <script src="~/FrontFinal/theme/vendors/scripts/datatable-setting.js"></script>
+</body>
+<script src="~/FrontFinal/theme/vendors/scripts/dashboard3.js"></script>
 
-    <script src="~/FrontFinal/theme/src/plugins/jquery-steps/jquery.steps.js"></script>
-    <script src="~/FrontFinal/theme/vendors/scripts/steps-setting.js"></script>
+<script src="~/FrontFinal/theme/src/plugins/jquery-steps/jquery.steps.js"></script>
+<script src="~/FrontFinal/theme/vendors/scripts/steps-setting.js"></script>
 
-    <script>
+<script>
 
         $("#deconnexionChef").click(function () {
 
@@ -252,9 +263,9 @@
         });
 
 
-    </script>
+</script>
 
-    @RenderSection("scripts", required: false)
+@RenderSection("scripts", required: false)
 
 </body>
 </html>
