@@ -4167,7 +4167,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   padding: .5rem .75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #1b00ff;
+  color: black;
   background-color: #fff;
   border: 1px solid #dee2e6; }
 
@@ -4194,17 +4194,19 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   border-bottom-right-radius: .25rem; }
 
 .page-item.active .page-link {
-  z-index: 3;
-  color: #fff;
-  background-color: #1b00ff;
-  border-color: #1b00ff; }
+    z-index: 3;
+    color: #e35865;
+    background-color: black;
+    border-color: black;
+}
 
 .page-item.disabled .page-link {
-  color: #6c757d;
-  pointer-events: none;
-  cursor: auto;
-  background-color: #fff;
-  border-color: #dee2e6; }
+    color: black;
+    pointer-events: none;
+    cursor: auto;
+    background-color: white;
+    border-color: white;
+}
 
 .pagination-lg .page-link {
   padding: .75rem 1.5rem;
