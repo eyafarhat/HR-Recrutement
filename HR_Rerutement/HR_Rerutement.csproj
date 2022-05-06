@@ -2732,6 +2732,7 @@
     <Content Include="FrontFinal\theme\vendors\images\deskapp-logo-white.svg" />
     <Content Include="FrontFinal\theme\vendors\images\deskapp-logo.svg" />
     <Content Include="FrontFinal\theme\vendors\images\edge.png" />
+    <Content Include="FrontFinal\theme\vendors\images\eya.jpg" />
     <Content Include="FrontFinal\theme\vendors\images\favicon-16x16.png" />
     <Content Include="FrontFinal\theme\vendors\images\favicon-32x32.png" />
     <Content Include="FrontFinal\theme\vendors\images\firefox.png" />

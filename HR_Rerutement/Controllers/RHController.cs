@@ -8,6 +8,9 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using HR_Rerutement.Models;
 using Newtonsoft.Json;
+using System.Net;
+using System.Net.Mail;
+using System.Configuration;
 
 namespace HR_Rerutement.Controllers
 {
@@ -38,6 +41,42 @@ namespace HR_Rerutement.Controllers
             return View();
         }
 
+        public JsonResult sendProEmail(string receiver, string content)
+        {
+            var body = content;
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(receiver));
+            message.CC.Add(new MailAddress(ConfigurationManager.AppSettings.Get("CopieEmail")));
+            message.From = new MailAddress(ConfigurationManager.AppSettings.Get("gmailAccountAddress"));
+            message.Subject = "subject test";
+            message.Body = body;
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = ConfigurationManager.AppSettings.Get("gmailAccountAddress"),
+                    Password = ConfigurationManager.AppSettings.Get("gmailAccountPassword")
+                };
+
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                try
+                {
+                    smtp.Send(message);
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine(Ex);
+                    return Json("echec", JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
         public ActionResult HistoriqueDemandeRecrutement()
         {
             var user = Session["CurrentUser"] as Demandeur;
