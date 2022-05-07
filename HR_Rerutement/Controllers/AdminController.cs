@@ -99,7 +99,8 @@ namespace HR_Rerutement.Controllers
         public JsonResult DeleteDemandeur(string matricule)
         {
             var Demandeur = context.Demandeurs.Find(matricule);
-            Demandeur.Permission = null;
+           // Demandeur.Permission = null;
+            context.Demandeurs.Remove(Demandeur);
             context.SaveChanges();
 
 

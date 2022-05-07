@@ -274,9 +274,9 @@
                     <span class="iconify"
                           data-icon="line-md:cancel" data-width="20" data-height="20"></span> Non, Annulée
                 </button>
-                <button type="button" class="btn mb-2 btn-success text-white " style="background-color: #e52335; border-color: #e52335; ">
+                <button type="button" class="btn mb-2 btn-success text-white " id="saveSupprimer" style="background-color: #e52335; border-color: #e52335; ">
                     <span class="iconify"
-                          data-icon="bi:check" data-width="20" data-height="20" id="saveSupprimer"></span> Oui, Supprimer
+                          data-icon="bi:check" data-width="20" data-height="20" ></span> Oui, Supprimer
                 </button>
             </div>
             <br />
@@ -317,6 +317,7 @@
     $(".supprimer").click(function () {
         var trid = $(this).closest('tr').attr('id'); // table row ID
         $("#SupprimerModalCompte").val(trid);
+        console.log($("#SupprimerModalCompte").val());
         $('#SupprimerModal').modal('show');
 
 
@@ -327,6 +328,7 @@
     $("#SaveModiferCompte").click(function () {
 
         var matricule = $("#ModifierCompteMatricule").val();
+       
         var role = $("#ModifierCompteRole").val();
         $.ajax({
             dataType: "json",
@@ -356,6 +358,8 @@
     $("#saveSupprimer").click(function () {
 
         var matricule = $("#SupprimerModalCompte").val();
+        console.log(matricule);
+
         $.ajax({
             dataType: "json",
             type: "POST",
@@ -371,7 +375,7 @@
                     text: 'Compte supprimé',
 
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
+                    
                     location.reload();
                 })
 

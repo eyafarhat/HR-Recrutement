@@ -412,10 +412,10 @@
                                     <br>
 
                                     <div class="text-center">
-                                        <button class="btn mb-5 btn text-white" style="background-color:forestgreen !important" id="ModifierDetails">
+                                        <button class="btn mb-5 btn text-white" style="background-color: #005f73 !important " id="ModifierDetails">
                                             <span class="iconify" data-icon="bi:check" style="color:white" data-width="20" data-height="20"></span> Modifier
                                         </button>  &nbsp &nbsp &nbsp
-                                        <button type="button" class="btn mb-5 btn text-white" data-dismiss="modal" style="background-color:#bb3e03 !important" id="SupprimerDetails">
+                                        <button type="button" class="btn mb-5 btn text-white" data-dismiss="modal" style="background-color: #ae2012 !important " id="SupprimerDetails">
                                             <span class="iconify" data-icon="icomoon-free:cancel-circle" style="color: white;" data-width="20" data-height="20"></span> Supprimer
                                         </button>
 
@@ -490,7 +490,21 @@
                 return;
 
             }
+
             $("#form").submit();
+
+            Swal.fire({
+
+                icon: 'success',
+                title: 'Demande Modifier',
+                text: 'Demande Modifier !!',
+
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                location.href = "/Chef/HistoriqueDemandeRecrutement";
+            })
+
+
 
         })
         $('#SupprimerDetails').on("click", function () {
