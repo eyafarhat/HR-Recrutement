@@ -97,7 +97,7 @@
 
                                             <div class="row mb-4">
                                                 <div class="col-md-12">
-                                                    <div class="card shadow">
+                                                    <div class="card ">
                                                         <div class="card-body">
                                                             <div class="form-group row">
                                                                 &nbsp; &nbsp; &nbsp;  <h5 class="card-title">Besoins en Formation</h5>
@@ -380,7 +380,7 @@
 
                                             <div class="row mb-4">
                                                 <div class="col-md-12">
-                                                    <div class="card shadow">
+                                                    <div class="card ">
                                                         <div class="card-body">
                                                             <div class="form-group row">
                                                                 &nbsp; &nbsp; &nbsp;  <h5 class="card-title">Objectif</h5>
@@ -481,7 +481,7 @@
         $.ajax({
             dataType: "json",
             type: "POST",
-            url: "@Url.Action("DeleteDemandeFormation", "Chef")",
+            url: "@Url.Action("DeleteDemandeFormation", "RH")",
             data: { IdFormation },
             success: function (data) {
                 console.log("data", data);
